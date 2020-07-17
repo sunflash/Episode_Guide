@@ -41,11 +41,7 @@ struct SeasonSelectionView: View {
                             .padding(15)
                             .background(self.getBackgroundColor(season))
                             .clipShape(Circle())
-                            .gesture(
-                                TapGesture().onEnded { _ in
-                                    self.selectedSeason = season.seasonNumber
-                                }
-                            )
+                            .gesture(self.selectSeason(season))
                     }
                 }
             }
@@ -54,6 +50,12 @@ struct SeasonSelectionView: View {
 
     private func getBackgroundColor(_ season: TVSeason) -> Color {
         return self.selectedSeason == season.seasonNumber ? Color(.systemOrange) : Color.clear
+    }
+
+    func selectSeason(_ season: TVSeason) -> some Gesture {
+        return TapGesture().onEnded { _ in
+            self.selectedSeason = season.seasonNumber
+        }
     }
 }
 
